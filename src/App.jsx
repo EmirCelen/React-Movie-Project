@@ -8,7 +8,6 @@ import Home from "./pages/Home";
 import Category from "./pages/Category";
 import SearchResults from "./pages/SearchResults";
 import Detail from "./pages/Detail";
-import TvCategory from "./pages/Tvcategory";
 
 
 function App() {
@@ -19,7 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movies/:genreId" element={<Category />} />
-          <Route path="/tv/:genreId" element={<TvCategory />} />
+          <Route path="/tv/:genreId" element={<Category />} />
           <Route path="/search" element={<SearchResults />} />
           <Route path="/movie/:id" element={<Detail />} />
         </Routes>

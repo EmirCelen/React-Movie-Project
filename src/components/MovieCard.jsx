@@ -3,9 +3,14 @@ import { useState } from "react";
 export default function MovieCard({ movie }) {
     const imageBase = "https://image.tmdb.org/t/p/w500";
     const [hovered, setHovered] = useState(false);
+    const handleClick = () => {
+        window.open(`/movie/${movie.id}`, "_blank");
+    };
+
 
     return (
         <div
+            onClick={handleClick}
             className="relative min-w-[150px] md:min-w-[200px] cursor-pointer transform transition-transform hover:scale-110 rounded-lg overflow-hidden"
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
