@@ -1,6 +1,4 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
@@ -17,10 +15,11 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/movies/:genreId" element={<Category />} />
-          <Route path="/tv/:genreId" element={<Category />} />
+          <Route path="/movies-genre/:genreId" element={<Category />} />
+          <Route path="/tv-genre/:genreId" element={<Category />} />
           <Route path="/search" element={<SearchResults />} />
-          <Route path="/movie/:id" element={<Detail />} />
+          <Route path="/movie/:id" element={<Detail type="movie" />} />
+          <Route path="/tv/:id" element={<Detail type="tv" />} />
         </Routes>
       </div>
     </Router>

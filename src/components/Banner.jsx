@@ -20,7 +20,7 @@ export default function Banner() {
 
     return (
         <header
-            className="relative h-[60vh] md:h-[80vh] text-white flex flex-col justify-end p-6 bg-cover bg-center"
+            className="relative h-[60vh] md:h-[80vh] text-white flex flex-col justify-end p-6 bg-cover bg-center -mt-10"
             style={{
                 backgroundImage: `url(${imageBase}${movie.backdrop_path})`,
             }}

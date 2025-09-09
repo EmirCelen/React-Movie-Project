@@ -79,8 +79,8 @@ export default function Navbar() {
                 {/* Menü */}
                 <div className="flex space-x-6 text-white">
                     <Link to="/">Home</Link>
-                    <Dropdown title="Movies" items={movieGenres} type="movies" />
-                    <Dropdown title="TV Shows" items={tvGenres} type="tv" />
+                    <Dropdown title="Movies" items={movieGenres} type="movies-genre" />
+                    <Dropdown title="TV Shows" items={tvGenres} type="tv-genre" />
                     <Link to="/popular">New & Popular</Link>
                     <Link to="/mylist">My List</Link>
                 </div>
@@ -95,16 +95,22 @@ export default function Navbar() {
                                 }`}
                         />
 
-                        {/* Input */}
                         <input
                             type="text"
                             value={query}
-                            onChange={(e) => setQuery(e.target.value)}
+                            onChange={(e) => {
+                                const val = e.target.value;
+                                setQuery(val);
+
+                                // anında yönlendir
+                                if (val.trim()) {
+                                    navigate(`/search?q=${val}`);
+                                }
+                            }}
                             placeholder="Titles, people, genres"
                             className={`bg-black text-white border border-white rounded transition-all duration-300 pl-8 pr-2 py-1 w-0 opacity-0 ${searchOpen ? "w-64 opacity-100" : ""
                                 }`}
                         />
-
                         {/* Toggle Button */}
                         <button
                             onClick={() => setSearchOpen((prev) => !prev)}

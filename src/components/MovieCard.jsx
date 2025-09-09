@@ -4,7 +4,8 @@ export default function MovieCard({ movie }) {
     const imageBase = "https://image.tmdb.org/t/p/w500";
     const [hovered, setHovered] = useState(false);
     const handleClick = () => {
-        window.open(`/movie/${movie.id}`, "_blank");
+        const type = movie.media_type || (movie.title ? "movie" : "tv");
+        window.open(`/${type}/${movie.id}`, "_blank");
     };
 
 
