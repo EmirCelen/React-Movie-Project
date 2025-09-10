@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import tmdb from "../api/tmdb";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
@@ -9,6 +10,7 @@ export default function Navbar() {
     const [tvGenres, setTvGenres] = useState([]);
     const [searchOpen, setSearchOpen] = useState(false);
     const [query, setQuery] = useState("");
+    const { token, logout } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -30,36 +32,6 @@ export default function Navbar() {
         };
         fetchGenres();
     }, []);
-
-    const handleSearch = (e) => {
-        e.preventDefault();
-        if (query.trim()) {
-            navigate(`/search?q=${query}`);
-            setQuery("");
-            setSearchOpen(false);
-        }
-    };
-
-    // Dropdown Component
-    const Dropdown = ({ title, items, type }) => (
-        <div className="relative group">
-            <span className="cursor-pointer">{title} ▾</span>
-            <div className="absolute left-0 mt-2 w-48 bg-black bg-opacity-90 rounded-md shadow-lg opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 group-hover:visible invisible transition-all duration-300 z-50">
-                <ul className="py-2">
-                    {items.map((genre) => (
-                        <li key={genre.id}>
-                            <Link
-                                to={`/${type}/${genre.id}`}
-                                className="block px-4 py-2 hover:bg-gray-700"
-                            >
-                                {genre.name}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        </div>
-    );
 
     return (
         <nav
@@ -89,7 +61,6 @@ export default function Navbar() {
                 <div className="flex items-center space-x-4">
                     {/* Search */}
                     <div className="relative flex items-center">
-                        {/* Search Icon (inside input) */}
                         <MagnifyingGlassIcon
                             className={`h-5 w-5 text-gray-400 absolute left-2 pointer-events-none transition-opacity duration-300 ${searchOpen ? "opacity-100" : "opacity-0"
                                 }`}
@@ -101,17 +72,12 @@ export default function Navbar() {
                             onChange={(e) => {
                                 const val = e.target.value;
                                 setQuery(val);
-
-                                // anında yönlendir
-                                if (val.trim()) {
-                                    navigate(`/search?q=${val}`);
-                                }
+                                if (val.trim()) navigate(`/search?q=${val}`);
                             }}
                             placeholder="Titles, people, genres"
                             className={`bg-black text-white border border-white rounded transition-all duration-300 pl-8 pr-2 py-1 w-0 opacity-0 ${searchOpen ? "w-64 opacity-100" : ""
                                 }`}
                         />
-                        {/* Toggle Button */}
                         <button
                             onClick={() => setSearchOpen((prev) => !prev)}
                             className="ml-2 text-white"
@@ -120,19 +86,45 @@ export default function Navbar() {
                         </button>
                     </div>
 
-
-                    {/* Bildirim */}
-                    <div className="relative cursor-pointer">
-                        <span className="absolute -top-1 -right-1 bg-red-600 text-xs text-white rounded-full px-1.5">
-                            5
-                        </span>
-                        🔔
-                    </div>
-
-                    {/* Profil */}
-                    <div className="w-8 h-8 bg-gray-500 rounded-full"></div>
+                    {/* Profil / Login */}
+                    {token ? (
+                        <div className="relative">
+                            <div className="w-8 h-8 bg-gray-500 rounded-full cursor-pointer"></div>
+                            <button
+                                onClick={logout}
+                                className="absolute top-10 right-0 bg-black text-white px-3 py-1 rounded"
+                            >
+                                Logout
+                            </button>
+                        </div>
+                    ) : (
+                        <Link to="/login" className="text-white font-semibold">
+                            Login
+                        </Link>
+                    )}
                 </div>
             </div>
         </nav>
     );
 }
+
+// Dropdown Component
+const Dropdown = ({ title, items, type }) => (
+    <div className="relative group">
+        <span className="cursor-pointer">{title} ▾</span>
+        <div className="absolute left-0 mt-2 w-48 bg-black bg-opacity-90 rounded-md shadow-lg opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 group-hover:visible invisible transition-all duration-300 z-50">
+            <ul className="py-2">
+                {items.map((genre) => (
+                    <li key={genre.id}>
+                        <Link
+                            to={`/${type}/${genre.id}`}
+                            className="block px-4 py-2 hover:bg-gray-700"
+                        >
+                            {genre.name}
+                        </Link>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </div>
+);

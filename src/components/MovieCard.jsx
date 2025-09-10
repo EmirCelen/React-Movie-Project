@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AddToMyListButton from "./AddToMyListButton";
 
 export default function MovieCard({ movie }) {
     const imageBase = "https://image.tmdb.org/t/p/w500";
@@ -29,6 +30,8 @@ export default function MovieCard({ movie }) {
                     </h3>
                     <p className="text-xs line-clamp-3 mb-2">{movie.overview}</p>
                     <span className="text-xs">⭐ {movie.vote_average.toFixed(1)}</span>
+
+                    <AddToMyListButton movieId={movie.id} />
                 </div>
             )}
         </div>

@@ -43,6 +43,7 @@ export default function Banner() {
                     <button className="bg-gray-700 px-4 py-2 rounded font-bold">
                         More Info
                     </button>
+
                 </div>
             </div>
         </header>

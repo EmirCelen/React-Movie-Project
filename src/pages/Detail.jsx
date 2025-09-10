@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import tmdb from "../api/tmdb";
 import { FaRegCalendarAlt, FaClock, FaGlobeAmericas, FaStar } from "react-icons/fa";
+import AddToMyListButton from "../components/AddToMyListButton";
 
 export default function Detail({ type = "movie" }) {
     const { id } = useParams();
@@ -67,6 +68,8 @@ export default function Detail({ type = "movie" }) {
                         </h1>
                         <p className="mb-6 text-gray-300">{item.overview}</p>
 
+                        <AddToMyListButton movieId={item.id} />
+
                         {/* Meta Infos */}
                         <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400 mb-6">
                             {/* Yayın yılı */}
@@ -125,9 +128,13 @@ export default function Detail({ type = "movie" }) {
                         <p>
                             <span className="font-bold">Producer:</span>{" "}
                             {credits.find(c => c.job === "Producer")?.name || "N/A"}
+
                         </p>
+
                     </div>
+
                 </div>
+
             </div>
 
             {/* Trailer */}
