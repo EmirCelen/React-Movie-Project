@@ -1,5 +1,6 @@
 import { useState } from "react";
 import AddToMyListButton from "./AddToMyListButton";
+import { FaStar } from "react-icons/fa";
 
 export default function MovieCard({ movie }) {
     const imageBase = "https://image.tmdb.org/t/p/w500";
@@ -29,7 +30,11 @@ export default function MovieCard({ movie }) {
                         {movie.title || movie.name}
                     </h3>
                     <p className="text-xs line-clamp-3 mb-2">{movie.overview}</p>
-                    <span className="text-xs">⭐ {movie.vote_average.toFixed(1)}</span>
+                    <div className="flex justify-center items-center text-yellow-400 text-xs mb-2">
+                        <FaStar className="mr-1" />
+                        {movie.vote_average.toFixed(1)}
+                    </div>
+
 
                     <AddToMyListButton movieId={movie.id} />
                 </div>

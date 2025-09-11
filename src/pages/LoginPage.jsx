@@ -40,9 +40,13 @@ export default function LoginPage() {
                 navigate("/"); // anasayfaya dön
             }
         } catch (err) {
-            console.error(err);
-            alert("Something went wrong!");
+            console.error("Register/Login error:", err.response?.data || err.message);
+
+            // Backend’ten gelen hata mesajını göster
+            const message = err.response?.data?.error || "Something went wrong!";
+            alert(message);
         }
+
     };
 
     return (

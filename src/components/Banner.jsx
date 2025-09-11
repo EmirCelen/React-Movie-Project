@@ -27,25 +27,26 @@ export default function Banner() {
         >
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            <div className="absolute bottom-10 inset-x-0 flex flex-col items-center text-center text-white px-4">
+                <h1 className="text-4xl md:text-6xl font-bold mb-4">{movie.title}</h1>
+                <p className="max-w-2xl mb-6">{movie.overview}</p>
 
-            <div className="relative z-10">
-                <h1 className="text-3xl md:text-5xl font-bold mb-4">
-                    {movie.title || movie.name}
-                </h1>
-                <p className="max-w-xl text-sm md:text-base mb-6 line-clamp-3">
-                    {movie.overview}
-                </p>
                 <div className="flex space-x-4">
-                    <button className="bg-white px-4 py-2 rounded font-bold hover:bg-gray-300 transition">
+                    <button
+                        onClick={() => setShowTrailer(true)}
+                        className="bg-white  px-4 py-2 rounded font-bold hover:bg-gray-200"
+                    >
                         Play
                     </button>
-
-                    <button className="bg-gray-700 px-4 py-2 rounded font-bold">
+                    <button
+                        onClick={() => navigate(`/movie/${movie.id}`)}
+                        className="bg-gray-700 bg-opacity-70 text-white px-4 py-2 rounded font-bold hover:bg-gray-600"
+                    >
                         More Info
                     </button>
-
                 </div>
             </div>
+
         </header>
 
     );

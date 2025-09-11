@@ -12,6 +12,7 @@ export default function Navbar() {
     const [query, setQuery] = useState("");
     const { token, logout } = useAuth();
     const navigate = useNavigate();
+    const [dropdownOpen, setDropdownOpen] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -89,19 +90,30 @@ export default function Navbar() {
                     {/* Profil / Login */}
                     {token ? (
                         <div className="relative">
-                            <div className="w-8 h-8 bg-gray-500 rounded-full cursor-pointer"></div>
-                            <button
-                                onClick={logout}
-                                className="absolute top-10 right-0 bg-black text-white px-3 py-1 rounded"
-                            >
-                                Logout
-                            </button>
+                            {/* Profil ikonu */}
+                            <div
+                                className="w-8 h-8 bg-gray-500 rounded-full cursor-pointer"
+                                onClick={() => setDropdownOpen((prev) => !prev)}
+                            ></div>
+
+                            {/* Dropdown */}
+                            {dropdownOpen && (
+                                <div className="absolute right-0 mt-2 w-32 bg-black text-white rounded shadow-lg">
+                                    <button
+                                        onClick={logout}
+                                        className="block w-full text-left px-4 py-2 hover:bg-gray-700"
+                                    >
+                                        Logout
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     ) : (
                         <Link to="/login" className="text-white font-semibold">
                             Login
                         </Link>
                     )}
+
                 </div>
             </div>
         </nav>
