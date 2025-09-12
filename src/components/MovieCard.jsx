@@ -36,7 +36,10 @@ export default function MovieCard({ movie }) {
                     </div>
 
 
-                    <AddToMyListButton movieId={movie.id} />
+                    <AddToMyListButton
+                        movieId={movie.id}
+                        mediaType={movie.title ? "movie" : "tv"}
+                    />
                 </div>
             )}
         </div>

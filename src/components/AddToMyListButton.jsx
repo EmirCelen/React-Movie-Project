@@ -1,7 +1,7 @@
 import { FaPlus, FaCheck } from "react-icons/fa6";
 import { useMyList } from "../context/MyListContext";
 
-export default function AddToMyListButton({ movieId }) {
+export default function AddToMyListButton({ movieId, mediaType }) {
     const { myList, addToMyList, removeFromMyList } = useMyList();
 
     const isAdded = myList.some((item) => item.movieId === movieId);
@@ -9,9 +9,9 @@ export default function AddToMyListButton({ movieId }) {
     const handleClick = (e) => {
         e.stopPropagation();
         if (isAdded) {
-            removeFromMyList(movieId);
+            removeFromMyList(movieId, mediaType);
         } else {
-            addToMyList(movieId);
+            addToMyList(movieId, mediaType);
         }
     };
 

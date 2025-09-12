@@ -26,7 +26,7 @@ export default function MyList() {
                 const tmdbKey = import.meta.env.VITE_TMDB_READ_TOKEN;
 
                 const requests = myList.map((item) =>
-                    axios.get(`https://api.themoviedb.org/3/movie/${item.movieId}`, {
+                    axios.get(`https://api.themoviedb.org/3/${item.mediaType}/${item.movieId}`, {
                         headers: { Authorization: `Bearer ${tmdbKey}` },
                     })
                 );

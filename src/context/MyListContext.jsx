@@ -31,12 +31,12 @@ export function MyListProvider({ children }) {
         }
     };
 
-    const addToMyList = async (movieId) => {
+    const addToMyList = async (movieId, mediaType) => {
         if (!token) return alert("Please login first");
         try {
             await axios.post(
                 `${import.meta.env.VITE_API_URL}/mylist`,
-                { movieId },
+                { movieId, mediaType },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             fetchMyList();

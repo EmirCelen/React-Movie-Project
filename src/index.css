@@ -16,12 +16,12 @@
 /* Link ayarları */
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #6f46c2;
   text-decoration: none;
 }
 
 a:hover {
-  color: #535bf2;
+  color: #fffdf8;
 }
 
 /* Body - artık ortada kolon gibi değil, full width */
@@ -53,7 +53,7 @@ button {
 }
 
 button:hover {
-  border-color: #646cff;
+  border-color: #b58d0b;
 }
 
 button:focus,

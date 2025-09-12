@@ -10,6 +10,7 @@ import { AuthProvider } from "./context/AuthContext";
 import LoginPage from "./pages/LoginPage";
 import MyList from './pages/Mylist';
 import { MyListProvider } from "./context/MyListContext";
+import Newpopular from "./pages/Newpopular";
 
 
 
@@ -24,6 +25,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/movies-genre/:genreId" element={<Category />} />
               <Route path="/tv-genre/:genreId" element={<Category />} />
+              <Route path="/popular" element={<Newpopular />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/search" element={<SearchResults />} />
               <Route path="/movie/:id" element={<Detail type="movie" />} />

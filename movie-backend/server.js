@@ -70,19 +70,16 @@ const auth = (req, res, next) => {
 
 // Add to My List
 app.post("/mylist", auth, async (req, res) => {
-    const { movieId } = req.body;
-    if (!movieId) return res.status(400).json({ error: "movieId is required" });
-
+    const { movieId, mediaType } = req.body;
     try {
         const item = await prisma.myList.create({
-            data: { userId: req.userId, movieId },
+            data: { userId: req.userId, movieId, mediaType },
         });
         res.json(item);
     } catch (error) {
-        res.status(400).json({ error: "Movie already in list" });
+        res.status(400).json({ error: "Already in list" });
     }
 });
-
 // Get My List
 app.get("/mylist", auth, async (req, res) => {
     const list = await prisma.myList.findMany({
