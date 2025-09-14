@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import tmdb from "../api/tmdb";
 import MovieCard from "../components/MovieCard";
+import MovieCardSkeleton from "../components/MovieCardSkeleton";
+
 
 export default function Category() {
     const { genreId } = useParams();
@@ -85,7 +87,14 @@ export default function Category() {
 
             {error && <p className="text-red-500">{error}</p>}
 
-            {items.length > 0 ? (
+            {/* ✅ Skeletons ekledik */}
+            {loading && items.length === 0 ? (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+                    {Array.from({ length: 10 }).map((_, i) => (
+                        <MovieCardSkeleton key={i} />
+                    ))}
+                </div>
+            ) : items.length > 0 ? (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
                     {items.map((item) => (
                         <MovieCard key={item.id} movie={item} />
@@ -95,8 +104,13 @@ export default function Category() {
                 <p>No results found.</p>
             ) : null}
 
-            {loading && (
-                <p className="text-center text-gray-400 mt-6">Loading...</p>
+            {/* ✅ Scroll ile yeni sayfa yüklenirken altına skeleton koy */}
+            {loading && items.length > 0 && (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8 mt-6">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                        <MovieCardSkeleton key={i} />
+                    ))}
+                </div>
             )}
         </div>
     );

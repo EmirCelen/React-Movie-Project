@@ -12,8 +12,6 @@ import MyList from './pages/Mylist';
 import { MyListProvider } from "./context/MyListContext";
 import Newpopular from "./pages/Newpopular";
 
-
-
 function App() {
   return (
     <AuthProvider>

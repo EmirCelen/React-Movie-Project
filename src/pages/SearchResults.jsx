@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import tmdb from "../api/tmdb";
 import MovieCard from "../components/MovieCard";
+import MovieCardSkeleton from "../components/MovieCardSkeleton";
 
 export default function SearchResults() {
     const location = useLocation();
@@ -56,11 +57,21 @@ export default function SearchResults() {
             <h2 className="text-3xl font-bold mb-6">
                 Search results for: {query}
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                {movies.map((movie) => (
-                    <MovieCard key={movie.id} movie={movie} />
-                ))}
-            </div>
+
+            {movies.length === 0 && hasMore ? (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    {Array.from({ length: 8 }).map((_, i) => (
+                        <MovieCardSkeleton key={i} />
+                    ))}
+                </div>
+            ) : (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    {movies.map((movie) => (
+                        <MovieCard key={movie.id} movie={movie} />
+                    ))}
+                </div>
+            )}
+
             {!hasMore && <p className="text-center mt-6">No more results.</p>}
         </div>
     );
